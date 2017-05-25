@@ -1,0 +1,8 @@
+0. Simulation
+1. Maping room using teleop package
+2. Traveling in the room to certain point
+3. Using kinect for 3D mapping
+4. 3D Mapping room
+5. Travel in the room with 3D map
+6. Follow the object
+7. Integrate using snapdragon
