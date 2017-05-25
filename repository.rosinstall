@@ -1,0 +1,4 @@
+- git:
+    uri: https://github.com/KIT-MRT/neato_robot.git
+    version: hydro-devel
+    local-name: neato-robot
