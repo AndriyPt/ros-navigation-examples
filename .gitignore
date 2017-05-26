@@ -35,3 +35,6 @@
 
 #QtCreator files
 CMakeLists.txt.user
+
+#FreeCAD backup files
+*.fcstd1
