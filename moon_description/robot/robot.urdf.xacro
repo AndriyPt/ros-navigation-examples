@@ -15,6 +15,11 @@
 
   <xacro:property name="caster_radius" value="0.03"/>
 
+  <xacro:property name="wheel_width" value="0.02"/>
+  <xacro:property name="wheel_radius" value="0.035"/>
+
+  <xacro:property name="wheel_holder_size" value="0.01"/>
+
  <link name="base_footprint">
     <visual>
       <xacro:box_geometry width="0.001" depth="0.001" height="0.001"/>
@@ -53,7 +58,7 @@
   <joint name="caster_front_left_joint" type="fixed">
     <parent link="base_link"/>
     <child link="caster_front_left_wheel"/>
-    <origin rpy="${-pi/2} 0 0" xyz="0.05 -0.1 0.006"/>
+    <origin rpy="${-pi/2} 0 0" xyz="0.05 -0.1 0"/>
   </joint>
 
  <link name="caster_front_right_wheel">
@@ -68,7 +73,54 @@
   <joint name="caster_front_right_joint" type="fixed">
     <parent link="base_link"/>
     <child link="caster_front_right_wheel"/>
-    <origin rpy="${-pi/2} 0 0" xyz="-0.05 -0.1 0.006"/>
+    <origin rpy="${-pi/2} 0 0" xyz="-0.05 -0.1 0"/>
   </joint>
+
+  <link name="back_left_wheel_holder">
+    <visual>
+      <xacro:box_geometry width="${wheel_holder_size}" height="${wheel_holder_size}" depth="${wheel_holder_size}"/>
+      <xacro:green_material/>
+    </visual>
+    <xacro:box_collision width="${wheel_holder_size}" height="${wheel_holder_size}" depth="${wheel_holder_size}"/>
+    <xacro:box_inertia mass="0.003" width="${wheel_holder_size}" height="${wheel_holder_size}"
+                       depth="${wheel_holder_size}"/>
+  </link>
+
+  <joint name="base_to_back_left_wheel_holder" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_left_wheel_holder"/>
+    <origin xyz="${wheel_holder_size/2 + 0.025} 0 ${wheel_holder_size/2}" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="back_left_wheel">
+    <visual>
+      <xacro:cylinder_geometry radius="${wheel_radius}" height="${wheel_width}"/>
+      <xacro:black_material/>
+    </visual>
+    <xacro:cylinder_collision radius="${wheel_radius}" height="${wheel_width}"/>
+    <xacro:cylinder_inertia mass="0.03" radius="${wheel_radius}" height="${wheel_width}"/>
+    <dynamics damping="0.01" friction="100.0" />
+  </link>
+
+  <joint name="back_left_wheel_joint" type="continuous">
+    <parent link="back_left_wheel_holder"/>
+    <child link="back_left_wheel"/>
+    <origin xyz="${wheel_width/2 + wheel_holder_size/2} 0 0" rpy="0 ${pi/2} 0" />
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="100" />
+    <dynamics damping="0.01" friction="0.0" />
+  </joint>
+
+  <transmission name="back_left_wheel_transmission">
+     <type>transmission_interface/SimpleTransmission</type>
+     <joint name="back_left_wheel_joint">
+       <hardwareInterface>EffortJointInterface</hardwareInterface>
+     </joint>
+     <actuator name="back_left_wheel_motor">
+       <hardwareInterface>EffortJointInterface</hardwareInterface>
+       <mechanicalReduction>1</mechanicalReduction>
+     </actuator>
+  </transmission>
 
 </robot>
