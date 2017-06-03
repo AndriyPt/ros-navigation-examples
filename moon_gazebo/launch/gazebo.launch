@@ -23,7 +23,7 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model moon -param robot_description"/>
 
-  <!--<rosparam file="$(find moon_control)/config/gazebo/moon_control.yml" command="load" />-->
-  <!--<include file="$(find moon_control)/launch/control.launch" />-->
+  <rosparam file="$(find moon_control)/config/gazebo/moon_control.yml" command="load" />
+  <include file="$(find moon_control)/launch/control.launch" />
 
 </launch>

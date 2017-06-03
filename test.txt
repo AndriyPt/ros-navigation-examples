@@ -6,3 +6,6 @@
 5. Travel in the room with 3D map
 6. Follow the object
 7. Integrate using snapdragon
+
+
+rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
