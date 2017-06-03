@@ -1,73 +1,73 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:macro name="caster_wheel" params="prefix radius x y z">
+  <xacro:macro name="caster_wheel" params="prefix radius x y z">
 
-        <link name="caster_${prefix}_wheel">
-            <visual>
-                <xacro:sphere_geometry radius="${radius}"/>
-                <xacro:black_material/>
-            </visual>
-            <xacro:sphere_collision radius="${radius}"/>
-            <xacro:sphere_inertia mass="0.05" radius="${radius}"/>
-        </link>
+    <link name="caster_${prefix}_wheel">
+      <visual>
+        <xacro:sphere_geometry radius="${radius}"/>
+        <xacro:black_material/>
+      </visual>
+      <xacro:sphere_collision radius="${radius}"/>
+      <xacro:sphere_inertia mass="0.05" radius="${radius}"/>
+    </link>
 
-        <joint name="caster_${prefix}_joint" type="fixed">
-            <parent link="base_link"/>
-            <child link="caster_${prefix}_wheel"/>
-            <origin rpy="0 0 0" xyz="${x} ${y} ${z}"/>
-        </joint>
+    <joint name="caster_${prefix}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="caster_${prefix}_wheel"/>
+      <origin rpy="0 0 0" xyz="${x} ${y} ${z}"/>
+    </joint>
 
-    </xacro:macro>
+  </xacro:macro>
 
-    <xacro:macro name="transmission_wheel" params="prefix radius width holder_size wheels_distance direction">
+  <xacro:macro name="transmission_wheel" params="prefix radius width holder_size wheels_distance direction">
 
-        <link name="${prefix}_wheel_holder">
-            <visual>
-                <xacro:box_geometry width="${holder_size}" height="${holder_size}" depth="${holder_size}"/>
-                <xacro:green_material/>
-            </visual>
-            <xacro:box_collision width="${holder_size}" height="${holder_size}" depth="${holder_size}"/>
-            <xacro:box_inertia mass="0.003" width="${holder_size}" height="${holder_size}" depth="${holder_size}"/>
-        </link>
+    <link name="${prefix}_wheel_holder">
+      <visual>
+        <xacro:box_geometry width="${holder_size}" height="${holder_size}" depth="${holder_size}"/>
+        <xacro:green_material/>
+      </visual>
+      <xacro:box_collision width="${holder_size}" height="${holder_size}" depth="${holder_size}"/>
+      <xacro:box_inertia mass="0.003" width="${holder_size}" height="${holder_size}" depth="${holder_size}"/>
+    </link>
 
-        <joint name="base_to_${prefix}_wheel_holder" type="fixed">
-            <parent link="base_link"/>
-            <child link="${prefix}_wheel_holder"/>
-            <origin xyz="${direction * (holder_size + wheels_distance)/2} 0 ${holder_size/2}" rpy="0 0 0" />
-            <axis xyz="0 0 1" />
-        </joint>
+    <joint name="base_to_${prefix}_wheel_holder" type="fixed">
+      <parent link="base_link"/>
+      <child link="${prefix}_wheel_holder"/>
+      <origin xyz="${direction * (holder_size + wheels_distance)/2} 0 ${holder_size/2}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
 
-        <link name="${prefix}_wheel">
-            <visual>
-                <xacro:cylinder_geometry radius="${radius}" height="${width}"/>
-                <xacro:black_material/>
-            </visual>
-            <xacro:cylinder_collision radius="${radius}" height="${width}"/>
-            <xacro:cylinder_inertia mass="0.03" radius="${radius}" height="${width}"/>
-            <dynamics damping="0.01" friction="100.0" />
-        </link>
+    <link name="${prefix}_wheel">
+      <visual>
+        <xacro:cylinder_geometry radius="${radius}" height="${width}"/>
+        <xacro:black_material/>
+      </visual>
+      <xacro:cylinder_collision radius="${radius}" height="${width}"/>
+      <xacro:cylinder_inertia mass="0.03" radius="${radius}" height="${width}"/>
+      <dynamics damping="0.01" friction="100.0"/>
+    </link>
 
-        <joint name="${prefix}_wheel_joint" type="continuous">
-            <parent link="${prefix}_wheel_holder"/>
-            <child link="${prefix}_wheel"/>
-            <origin xyz="${direction * (width + holder_size) / 2} 0 0" rpy="0 ${pi/2} 0" />
-            <axis xyz="0 0 1" />
-            <limit effort="100" velocity="100" />
-            <dynamics damping="0.01" friction="0.0" />
-        </joint>
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <parent link="${prefix}_wheel_holder"/>
+      <child link="${prefix}_wheel"/>
+      <origin xyz="${direction * (width + holder_size) / 2} 0 0" rpy="0 ${pi/2} 0"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="100" velocity="100"/>
+      <dynamics damping="0.01" friction="0.0"/>
+    </joint>
 
-        <transmission name="${prefix}_wheel_transmission">
-            <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${prefix}_wheel_joint">
-                <hardwareInterface>EffortJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="${prefix}_wheel_motor">
-                <hardwareInterface>EffortJointInterface</hardwareInterface>
-                <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-        </transmission>
+    <transmission name="${prefix}_wheel_transmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}_wheel_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}_wheel_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
 
-    </xacro:macro>
+  </xacro:macro>
 
 </robot>
