@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <robot name="moon" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <!-- Global constants -->
-  <xacro:property name="pi" value="3.1415926535897931"/>
-
   <!-- Included files -->
   <xacro:include filename="$(find moon_description)/urdf/materials.urdf.xacro"/>
   <xacro:include filename="$(find moon_description)/urdf/common.urdf.xacro"/>
@@ -29,11 +26,10 @@
       <xacro:box_geometry width="0.001" depth="0.001" height="0.001"/>
       <xacro:white_material/>
     </visual>
-    <xacro:box_inertia mass="0.0001" width="0.001" depth="0.001" height="0.001"/>
   </link>
 
   <joint name="base_footprint_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.03"/>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
     <parent link="base_footprint"/>
     <child link="base_link"/>
   </joint>

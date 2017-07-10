@@ -45,7 +45,6 @@
       </visual>
       <xacro:cylinder_collision radius="${radius}" height="${width}"/>
       <xacro:cylinder_inertia mass="0.03" radius="${radius}" height="${width}"/>
-      <dynamics damping="0.01" friction="100.0"/>
     </link>
 
     <joint name="${prefix}_wheel_joint" type="continuous">
@@ -53,8 +52,6 @@
       <child link="${prefix}_wheel"/>
       <origin xyz="${direction * (width + holder_size) / 2} 0 0" rpy="0 ${pi/2} 0"/>
       <axis xyz="0 0 1"/>
-      <limit effort="100" velocity="100"/>
-      <dynamics damping="0.01" friction="0.0"/>
     </joint>
 
     <transmission name="${prefix}_wheel_transmission">
