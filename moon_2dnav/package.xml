@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <name>moon_2dnav</name>
+  <version>0.0.0</version>
+  <description>The moon_2dnav package</description>
+
+  <maintainer email="Andriy.Petlovanyy@todo.todo">Andriy Petlovanyy</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>gmapping</run_depend>
+</package>
