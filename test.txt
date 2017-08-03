@@ -9,3 +9,9 @@
 
 
 rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
+
+Manually install
+
+ros-kinetic-laser-scan-matcher
+
+http://docs.ros.org/lunar/api/robot_localization/html/index.html

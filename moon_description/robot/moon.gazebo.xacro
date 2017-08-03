@@ -67,7 +67,7 @@
   <gazebo reference="lidar">
     <material>Gazebo/Green</material>
     <sensor type="ray" name="hokuyo_sensor">
-      <pose>0 0 0.0124 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>40</update_rate>
       <ray>
@@ -94,6 +94,21 @@
         <frameName>lidar</frameName>
       </plugin>
     </sensor>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+      <robotNamespace>/</robotNamespace>
+      <updateRate>50.0</updateRate>
+      <bodyName>imu_link</bodyName>
+      <topicName>imu/data</topicName>
+      <accelDrift>0.005 0.005 0.005</accelDrift>
+      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+      <rateDrift>0.005 0.005 0.005 </rateDrift>
+      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+      <headingDrift>0.005</headingDrift>
+      <headingGaussianNoise>0.005</headingGaussianNoise>
+    </plugin>
   </gazebo>
 
 </robot>
