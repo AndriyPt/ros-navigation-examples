@@ -14,7 +14,7 @@ mobile_base_controller:
   cmd_vel_timeout: 0.25
 
   # Wheel separation and radius multipliers
-  wheel_separation_multiplier: 3.0 # Fixing issues with URDF reading
+  wheel_separation_multiplier: 3.5 # Fixing issues with URDF reading
   wheel_radius_multiplier: 1.0
 
   # Base frame_id

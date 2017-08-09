@@ -21,12 +21,7 @@
   <xacro:property name="lidar_height" value="0.02"/>
   <xacro:property name="lidar_radius" value="0.04"/>
 
-  <link name="base_footprint">
-    <visual>
-      <xacro:box_geometry width="0.001" depth="0.001" height="0.001"/>
-      <xacro:white_material/>
-    </visual>
-  </link>
+  <link name="base_footprint"/>
 
   <joint name="base_footprint_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.02"/>
@@ -42,12 +37,21 @@
       </geometry>
       <xacro:white_material/>
     </visual>
+  </link>
+
+  <link name="base_link_inertia">
     <xacro:box_collision width="${base_width}" depth="${base_height}" height="${base_length}"/>
     <xacro:box_inertia mass="3" width="${base_width}" depth="${base_height}" height="${base_length}"/>
   </link>
 
-  <xacro:caster_wheel prefix="front_left" radius="${caster_radius}" x="0.05" y="-0.1" z="0"/>
-  <xacro:caster_wheel prefix="front_right" radius="${caster_radius}" x="-0.05" y="-0.1" z="0"/>
+  <joint name="base_link_inertia_joint" type="fixed">
+    <origin xyz="${caster_radius} 0 ${caster_radius}" rpy="0 0 ${pi / 2}"/>
+    <parent link="base_link"/>
+    <child link="base_link_inertia"/>
+  </joint>
+
+  <xacro:caster_wheel prefix="front_left" radius="${caster_radius}" x="0.1" y="0.05" z="0"/>
+  <xacro:caster_wheel prefix="front_right" radius="${caster_radius}" x="0.1" y="-0.05" z="0"/>
 
   <xacro:transmission_wheel prefix="back_left" radius="${wheel_radius}" width="${wheel_width}"
                             holder_size="${wheel_holder_size}" wheels_distance="0.05" direction="1.0"/>
@@ -65,7 +69,7 @@
   </link>
 
   <joint name="lidar_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.04 ${base_height + lidar_height/2}"/>
+    <origin rpy="0 0 0" xyz="-0.04 0 ${base_height + lidar_height/2}"/>
     <parent link="base_link"/>
     <child link="lidar"/>
   </joint>

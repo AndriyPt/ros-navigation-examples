@@ -14,9 +14,33 @@
 
   </xacro:macro>
 
+  <xacro:macro name="sphere_inertia_gazebo" params="mass radius">
+
+    <inertial>
+      <mass>${mass}</mass>
+      <inertia>
+        <ixx>${2*mass*radius*radius/5}</ixx>
+        <ixy>0</ixy>
+        <iyy>${2*mass*radius*radius/5}</iyy>
+        <ixz>0</ixz>
+        <iyz>0</iyz>
+        <izz>${2*mass*radius*radius/5}</izz>
+      </inertia>
+    </inertial>
+
+  </xacro:macro>
+
   <xacro:macro name="sphere_geometry" params="radius">
     <geometry>
       <sphere radius="${radius}"/>
+    </geometry>
+  </xacro:macro>
+
+  <xacro:macro name="sphere_geometry_gazebo" params="radius">
+    <geometry>
+      <sphere>
+        <radius>${radius}</radius>
+      </sphere>
     </geometry>
   </xacro:macro>
 

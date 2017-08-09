@@ -35,39 +35,39 @@
   <gazebo reference="back_left_wheel_holder">
     <mu1 value="0.0"/>
     <mu2 value="0.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="back_left_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="back_right_wheel_holder">
     <mu1 value="0.0"/>
     <mu2 value="0.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
     <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="back_right_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
     <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="lidar">
     <material>Gazebo/Green</material>
     <sensor type="ray" name="hokuyo_sensor">
-      <pose>0 0 0.0124 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>40</update_rate>
       <ray>
