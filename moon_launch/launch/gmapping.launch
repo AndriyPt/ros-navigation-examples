@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find moon_2dnav)/launch/gmapping.launch" />
+    <include file="$(find moon_control)/launch/teleop.launch" />
+</launch>
