@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find moon_2dnav)/launch/move_base.launch" />
+    <include file="$(find moon_2dnav)/launch/rviz.launch" />
+</launch>

@@ -9,4 +9,5 @@
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>moon_control</run_depend>
   <run_depend>moon_gazebo</run_depend>
+  <run_depend>moon_2dnav</run_depend>
 </package>
