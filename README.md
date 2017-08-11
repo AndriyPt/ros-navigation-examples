@@ -35,7 +35,7 @@ Download Gazebo models for first time
 bash <( curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/F_add_gazebo_models_loading/docker/utils/load_gazebo_models.sh)
 ```
 
-Install ROS and compile source code
+Install ROS and compile source code (it will ask you for sudo password at some point, just press Enter)
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/master/ansible/deploy.sh) -o AndriyPt -r ros-navigation-examples -b kinetic-devel -v kinetic
