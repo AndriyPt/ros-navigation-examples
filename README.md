@@ -21,12 +21,30 @@ docker run -it --name navigation_demo -e DISPLAY  -e LOCAL_USER_ID=$(id -u) -v /
 Back window of [Terminator](https://gnometerminator.blogspot.com/p/introduction.html) UI console will apear after some time.
 You can use it's features to split terminal window into smaller terminals and run few commands in parallel. 
 
+In order to relaunch docker container after you closed Terminator window or rebooted machine please run
+```bash
+docker start navigation_demo
+```
+After some time Terminator window will reappear.
+
 ## Setup
-Installation instructions
+
+Download Gazebo models for first time
+
+```bash
+bash <( curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/F_add_gazebo_models_loading/docker/utils/load_gazebo_models.sh)
+```
+
+Install ROS and compile source code
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/master/ansible/deploy.sh) -o AndriyPt -r ros-navigation-examples -b kinetic-devel -v kinetic
 
+```
+
+Source workspace which is located here `~/workspace/ros-navigation-examples/base/`
+```bash
+source ~/workspace/ros-navigation-examples/base/devel/setup.bash
 ```
 
 ## Navigating on known map
