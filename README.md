@@ -61,7 +61,7 @@ or real robot
 roslaunch moon_launch real_robot.launch
 ```
 
-Launch navigation stack
+Launch navigation stack (in order to launch second command split Terminator window by two using Ctrl-Shift-E. More information on Terminator shortcuts can be found [here](https://dmaricic.wordpress.com/2011/01/28/terminator-keyboard-shortcuts/)) 
 ```bash
 roslaunch moon_launch navigation.launch
 ```
