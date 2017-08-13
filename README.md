@@ -12,13 +12,13 @@ Please follow these steps to run Docker container on your machine.
 ```bash
 sudo usermod -aG docker $USER
 ```
-And logout and login to your machine again :)
- 4. For development [the following](https://hub.docker.com/r/shadowrobot/build-tools/) docker container was used.
- 5. To pull it please run
+ 4. Logout and login to your machine again :)
+ 5. For development [the following](https://hub.docker.com/r/shadowrobot/build-tools/) docker container was used.
+ 6. To pull it please run
 ```bash
 docker pull shadowrobot/build-tools:xenial-kinetic-ide
 ```
- 6. If you want to run everything from docker container use the following command
+ 7. If you want to run everything from docker container use the following command
 ```bash
 docker run -it --name navigation_demo -e DISPLAY  -e LOCAL_USER_ID=$(id -u) -v /tmp/.X11-unix:/tmp/.X11-unix:rw shadowrobot/build-tools:xenial-kinetic-ide
 ```
