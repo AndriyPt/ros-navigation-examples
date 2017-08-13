@@ -8,12 +8,17 @@ Please follow these steps to run Docker container on your machine.
  
  1. Install Desktop OS Ubuntu Trusty or Xenial on your machine or in virtual machine
  2. Install Docker-CE using these [instructions](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
- 3. For development [the following](https://hub.docker.com/r/shadowrobot/build-tools/) docker container was used.
- 4. To pull it please run
+ 3. In order to executed Docker without sudo please execute
+```bash
+sudo usermod -aG docker $USER
+```
+And logout and login to your machine again :)
+ 4. For development [the following](https://hub.docker.com/r/shadowrobot/build-tools/) docker container was used.
+ 5. To pull it please run
 ```bash
 docker pull shadowrobot/build-tools:xenial-kinetic-ide
 ```
- 5. If you want to run everything from docker container use the following command
+ 6. If you want to run everything from docker container use the following command
 ```bash
 docker run -it --name navigation_demo -e DISPLAY  -e LOCAL_USER_ID=$(id -u) -v /tmp/.X11-unix:/tmp/.X11-unix:rw shadowrobot/build-tools:xenial-kinetic-ide
 ```
