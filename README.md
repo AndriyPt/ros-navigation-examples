@@ -20,11 +20,14 @@ docker pull shadowrobot/build-tools:xenial-kinetic-ide
 ```
  7. If you want to run everything from docker container use the following command
 ```bash
-docker run -it --name navigation_demo -e DISPLAY  -e LOCAL_USER_ID=$(id -u) -v /tmp/.X11-unix:/tmp/.X11-unix:rw shadowrobot/build-tools:xenial-kinetic-ide
+docker run -it --name navigation_demo -e DISPLAY -e LOCAL_USER_ID=$(id -u) --device=/dev/ttyACM0  -v /tmp/.X11-unix:/tmp/.X11-unix:rw shadowrobot/build-tools:xenial-kinetic-ide
 ```
-
-Back window of [Terminator](https://gnometerminator.blogspot.com/p/introduction.html) UI console will apear after some time.
-You can use it's features to split terminal window into smaller terminals and run few commands in parallel. 
+ 8. Black window of [Terminator](https://gnometerminator.blogspot.com/p/introduction.html) UI console will appear after some time.
+ 9. You can use it's features to [split terminal window](https://linux.die.net/man/1/terminator) into smaller terminals and run few commands in parallel (Ctrl+Shift+E).
+ 10. If you want to run real robot add user to dialout group and restart Docker container
+```bash
+sudo usermod -a -G dialout user
+```
 
 In order to relaunch docker container after you closed Terminator window or rebooted machine please run
 ```bash
