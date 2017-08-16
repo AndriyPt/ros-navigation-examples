@@ -10,4 +10,5 @@
   <run_depend>moon_control</run_depend>
   <run_depend>moon_gazebo</run_depend>
   <run_depend>moon_2dnav</run_depend>
+  <run_depend>moon_hardware</run_depend>
 </package>
