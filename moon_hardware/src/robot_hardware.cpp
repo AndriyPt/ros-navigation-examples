@@ -17,7 +17,8 @@ namespace moon_hardware
 
    void MoonRobotHW::jointStateCallback(const moon_msgs::MotorsJointState::ConstPtr& message)
    {
-     // TODO: Add mutex here !!!
+     std::lock_guard<std::mutex> lock(this->joint_states_update_mutex);
+
      hardware_motor_position[0] = message->left_joint_position;
      hardware_motor_velocity[0] = message->left_joint_velocity;
      hardware_motor_effort[0] = message->left_joint_effort;
@@ -54,6 +55,7 @@ namespace moon_hardware
 
   void MoonRobotHW::read(const ros::Time& time, const ros::Duration& period)
   {
+    std::lock_guard<std::mutex> lock(this->joint_states_update_mutex);
     for (unsigned i = 0; i != JOINTS_COUNT; ++i) {
       position[i] = hardware_motor_position[i];
       velocity[i] = hardware_motor_velocity[i];

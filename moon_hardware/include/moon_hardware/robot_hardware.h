@@ -1,7 +1,7 @@
 #ifndef MOON_HARDWARE_ROBOT_HARDWARE_H
 #define MOON_HARDWARE_ROBOT_HARDWARE_H
 
-#include <atomic>
+#include <mutex>
 #include <ros/ros.h>
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
@@ -29,6 +29,8 @@ private:
 
   ros::Subscriber motors_joint_state;
   ros::Publisher publish_motor_velocities;
+
+  std::mutex joint_states_update_mutex;
 
   static const int JOINTS_COUNT = 2;
 
