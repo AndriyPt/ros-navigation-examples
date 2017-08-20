@@ -12,6 +12,8 @@ from neato_driver.neato_driver import Botvac
 class MoonRobotDriver:
 
     def __init__(self):
+
+        rospy.loginfo('Starting moon_robot_driver node...')
         rospy.init_node('moon_robot_driver')
 
         self.port = rospy.get_param('~port', '/dev/ttyACM0')
@@ -21,6 +23,7 @@ class MoonRobotDriver:
         self.joint_state_publisher = rospy.Publisher('motors_joint_state', MotorsJointState, queue_size=10)
         self.velocity_command_subscriber = rospy.Subscriber('set_motors_velocity', SetMotorsVelocity,
                                                             self.setVelocityCallback)
+        rospy.loginfo('Started moon_robot_driver node')
 
     def setVelocityCallback(self, request):
         left_wheel_velocity = request.left_joint_velocity * 1000
@@ -89,6 +92,7 @@ class MoonRobotDriver:
             self.turnOff(exc_info)
 
     def turnOff(self, exc_info=None):
+        rospy.loginfo('Shutting down robot connection')
         if exc_info is not None:
             traceback.print_exception(*exc_info)
         self.robot.setMotors(0, 0, 0)
