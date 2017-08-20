@@ -18,6 +18,8 @@ class MoonRobotDriver:
 
         self.port = rospy.get_param('~port', '/dev/ttyACM0')
         self.lidar_frame = rospy.get_param('~lidar_frame', 'lidar')
+        self.velocity_command_timeout = rospy.Duration.from_sec(rospy.get_param('~cmd_vel_timeout', 0.25))
+        self.stop_time_without_commands = rospy.Time.now() + self.velocity_command_timeout
         self.robot = Botvac(self.port, True)
         self.scan_publisher = rospy.Publisher('/laser/scan', LaserScan, queue_size=10)
         self.joint_state_publisher = rospy.Publisher('motors_joint_state', MotorsJointState, queue_size=10)
@@ -26,6 +28,7 @@ class MoonRobotDriver:
         rospy.loginfo('Started moon_robot_driver node')
 
     def setVelocityCallback(self, request):
+        self.stop_time_without_commands = rospy.Time.now() + self.velocity_command_timeout
         left_wheel_velocity = request.left_joint_velocity * 1000
         right_wheel_velocity = request.right_joint_velocity * 1000
         max_velocity = max(abs(left_wheel_velocity), abs(right_wheel_velocity))
@@ -83,6 +86,10 @@ class MoonRobotDriver:
 
                 self.scan_publisher.publish(scan)
                 self.joint_state_publisher.publish(joint_states)
+
+                if then > self.stop_time_without_commands:
+                    rospy.loginfo_throttle(5, 'Stopping without external velocity commands')
+                    self.robot.setMotors(0, 0, 0)
 
                 rate.sleep()
 
