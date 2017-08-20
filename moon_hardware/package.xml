@@ -10,9 +10,11 @@
   <build_depend>hardware_interface</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>controller_manager</build_depend>
+  <build_depend>moon_msgs</build_depend>
   <run_depend>hardware_interface</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>controller_manager</run_depend>
   <run_depend>neato_driver</run_depend>
+  <run_depend>moon_msgs</run_depend>
 </package>

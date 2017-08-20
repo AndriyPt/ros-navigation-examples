@@ -7,13 +7,14 @@ find_package(catkin REQUIRED COMPONENTS
   hardware_interface
   controller_manager
   roscpp
+  moon_msgs
 )
 
 catkin_python_setup()
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS hardware_interface controller_manager roscpp
+  CATKIN_DEPENDS hardware_interface controller_manager roscpp moon_msgs
 )
 
 include_directories(include)

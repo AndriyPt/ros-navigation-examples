@@ -1,0 +1,108 @@
+#!/usr/bin/env python
+
+import rospy
+import sys
+import traceback
+
+from sensor_msgs.msg import LaserScan
+from moon_msgs.msg import MotorsJointState, SetMotorsVelocity
+from neato_driver.neato_driver import Botvac
+
+
+class MoonRobotDriver:
+
+    def __init__(self):
+        rospy.init_node('moon_robot_driver')
+
+        self.port = rospy.get_param('~port', '/dev/ttyACM0')
+        self.lidar_frame = rospy.get_param('~lidar_frame', 'lidar')
+        self.robot = Botvac(self.port, True)
+        self.scan_publisher = rospy.Publisher('/laser/scan', LaserScan, queue_size=10)
+        self.joint_state_publisher = rospy.Publisher('motors_joint_state', MotorsJointState, queue_size=10)
+        self.velocity_command_subscriber = rospy.Subscriber('set_motors_velocity', SetMotorsVelocity,
+                                                            self.setVelocityCallback)
+
+    def setVelocityCallback(self, request):
+        left_wheel_velocity = request.left_joint_velocity * 1000
+        right_wheel_velocity = request.right_joint_velocity * 1000
+        max_velocity = max(abs(left_wheel_velocity), abs(right_wheel_velocity))
+        self.robot.setMotors(left_wheel_velocity, right_wheel_velocity, max_velocity)
+
+    def spin(self):
+        scan = LaserScan(header=rospy.Header(frame_id=self.lidar_frame))
+        scan.angle_min = -3.13
+        scan.angle_max = +3.13
+        scan.angle_increment = 0.017437326
+        scan.range_min = 0.020
+        scan.range_max = 5.0
+
+        joint_states = MotorsJointState()
+        joint_states.left_joint_position = 0.0
+        joint_states.left_joint_velocity = 0.0
+        joint_states.left_joint_effort = 0.0
+        joint_states.right_joint_position = 0.0
+        joint_states.right_joint_velocity = 0.0
+        joint_states.right_joint_effort = 0.0
+
+        then = rospy.Time.now()
+
+        rate = rospy.Rate(5)
+        try:
+            while not rospy.is_shutdown():
+                charge = self.robot.getCharger()
+                if charge < 10:
+                    self.robot.setLED('battery', 'red', 'pulse')
+                elif charge < 25:
+                    self.robot.setLED('battery', 'yellow', 'solid')
+                else:
+                    self.robot.setLED('battery', 'green', 'solid')
+
+                scan.header.stamp = rospy.Time.now()
+                scan.ranges = self.robot.getScanRanges()
+
+                duration = (scan.header.stamp - then).to_sec()
+                then = scan.header.stamp
+
+                left_joint_position, right_joint_position = self.robot.getMotors()
+                left_joint_position /= 1000.0
+                right_joint_position /= 1000.0
+
+                left_joint_velocity = (left_joint_position - joint_states.left_joint_position) / duration
+                right_joint_velocity = (right_joint_position - joint_states.right_joint_position) / duration
+
+                joint_states.left_joint_effort = (left_joint_velocity - joint_states.left_joint_velocity) / duration
+                joint_states.right_joint_effort = (right_joint_velocity - joint_states.right_joint_velocity) / duration
+
+                joint_states.left_joint_position = left_joint_position
+                joint_states.right_joint_position = right_joint_position
+                joint_states.left_joint_velocity = left_joint_velocity
+                joint_states.right_joint_velocity = right_joint_velocity
+
+                self.scan_publisher.publish(scan)
+                self.joint_state_publisher.publish(joint_states)
+
+                rate.sleep()
+
+            self.turnOff()
+        except:
+            exc_info = sys.exc_info()
+            self.turnOff(exc_info)
+
+    def turnOff(self, exc_info=None):
+        if exc_info is not None:
+            traceback.print_exception(*exc_info)
+        self.robot.setMotors(0, 0, 0)
+        self.robot.setBacklight(0)
+        self.robot.setLED('Battery', 'Green', 'Off')
+        if exc_info is None:
+            self.robot.setLED('Info', 'Blue', 'Off')
+        else:
+            self.robot.setLED('Info', 'Red', 'Solid')
+        self.robot.setLDS('off')
+        self.robot.setTestMode('off')
+
+
+if __name__ == '__main__':
+    robot = MoonRobotDriver()
+    robot.spin()
+
