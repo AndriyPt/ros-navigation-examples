@@ -15,17 +15,22 @@ namespace moon_hardware
   {
   }
 
-//   void MoonRobotHW::jointStateCallback(const first_msgs::JointState::ConstPtr& message)
-//   {
-//     hardware_motor_position = message->position;
-//     hardware_motor_velocity = message->velocity;
-//     hardware_motor_effort = message->effort;
-//   }
+   void MoonRobotHW::jointStateCallback(const moon_msgs::MotorsJointState::ConstPtr& message)
+   {
+     // TODO: Add mutex here !!!
+     hardware_motor_position[0] = message->left_joint_position;
+     hardware_motor_velocity[0] = message->left_joint_velocity;
+     hardware_motor_effort[0] = message->left_joint_effort;
+
+     hardware_motor_position[1] = message->right_joint_position;
+     hardware_motor_velocity[1] = message->right_joint_velocity;
+     hardware_motor_effort[1] = message->right_joint_effort;
+   }
 
   bool MoonRobotHW::init(ros::NodeHandle& root_nh)
   {
-//    publish_effort = root_nh.advertise<std_msgs::Float32>("hardware_set_motor_effort", 1000);
-//    motor_joint_state = root_nh.subscribe("hardware_motor_state", 1000, &MoonRobotHW::jointStateCallback, this);
+    publish_motor_velocities = root_nh.advertise<moon_msgs::SetMotorsVelocity>("set_motors_velocity", 1000);
+    motors_joint_state = root_nh.subscribe("motors_joint_state", 1000, &MoonRobotHW::jointStateCallback, this);
 
     hardware_interface::JointStateHandle left_wheel_joint_state_handle("back_left_wheel_joint", &position[0],
         &velocity[0], &effort[0]);
@@ -49,16 +54,19 @@ namespace moon_hardware
 
   void MoonRobotHW::read(const ros::Time& time, const ros::Duration& period)
   {
-//    position = hardware_motor_position;
-//    velocity = hardware_motor_velocity;
-//    effort = hardware_motor_effort;
+    for (unsigned i = 0; i != JOINTS_COUNT; ++i) {
+      position[i] = hardware_motor_position[i];
+      velocity[i] = hardware_motor_velocity[i];
+      effort[i] = hardware_motor_effort[i];
+    }
   }
 
   void MoonRobotHW::write(const ros::Time& time, const ros::Duration& period)
   {
-//    std_msgs::Float32 message;
-//    message.data = command;
-//    publish_effort.publish(message);
+    moon_msgs::SetMotorsVelocity message;
+    message.left_joint_velocity = command[0];
+    message.right_joint_velocity = command[1];
+    publish_motor_velocities.publish(message);
   }
 
-}  // first_hardware
+}  // moon_hardware
