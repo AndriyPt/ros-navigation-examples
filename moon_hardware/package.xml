@@ -17,4 +17,5 @@
   <run_depend>controller_manager</run_depend>
   <run_depend>neato_driver</run_depend>
   <run_depend>moon_msgs</run_depend>
+  <run_depend>moon_description</run_depend>
 </package>

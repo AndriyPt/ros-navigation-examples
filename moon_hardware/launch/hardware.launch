@@ -1,6 +1,9 @@
 <launch>
   <arg name="port" default="/dev/ttyACM0"/>
 
+  <param name="robot_description"
+         command="$(find xacro)/xacro --inorder '$(find moon_description)/robot/moon.rviz.xacro'"/>
+
   <node name="robot_driver" pkg="moon_hardware" type="robot_driver" output="screen">
     <param name="port" value="$(arg port)"/>
   </node>

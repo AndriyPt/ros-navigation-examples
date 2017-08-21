@@ -4,7 +4,7 @@ project(moon_gazebo)
 find_package(catkin REQUIRED)
 
 catkin_package(
-  CATKIN_DEPENDS gazebo_ros gazebo_ros_control
+  CATKIN_DEPENDS gazebo_ros gazebo_ros_control moon_description
 )
 
 install(FILES
