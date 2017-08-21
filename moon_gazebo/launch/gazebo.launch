@@ -1,5 +1,4 @@
 <launch>
-
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
@@ -22,8 +21,4 @@
 
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model moon -param robot_description"/>
-
-  <rosparam file="$(find moon_control)/config/gazebo/moon_control.yml" command="load" />
-  <include file="$(find moon_control)/launch/control.launch" />
-
 </launch>

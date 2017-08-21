@@ -55,14 +55,6 @@ class MoonRobotDriver:
         rate = rospy.Rate(5)
         try:
             while not rospy.is_shutdown():
-                charge = self.robot.getCharger()
-                if charge < 10:
-                    self.robot.setLED('battery', 'red', 'pulse')
-                elif charge < 25:
-                    self.robot.setLED('battery', 'yellow', 'solid')
-                else:
-                    self.robot.setLED('battery', 'green', 'solid')
-
                 scan.header.stamp = rospy.Time.now()
                 scan.ranges = self.robot.getScanRanges()
 

@@ -3,6 +3,9 @@
   <arg name="lidar_frame" default="lidar"/>
   <arg name="cmd_vel_timeout" default="0.25"/>
 
+  <param name="robot_description"
+         command="$(find xacro)/xacro --inorder '$(find moon_description)/robot/moon.rviz.xacro'"/>
+
   <node name="robot_driver" pkg="moon_hardware" type="robot_driver" output="screen">
     <param name="port" value="$(arg port)"/>
     <param name="lidar_frame" value="$(arg lidar_frame)"/>
