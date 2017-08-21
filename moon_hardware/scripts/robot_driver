@@ -16,6 +16,9 @@ class MoonRobotDriver:
         rospy.loginfo('Starting moon_robot_driver node...')
         rospy.init_node('moon_robot_driver')
 
+        # TODO: Read this information from robot description or parameter
+        self.wheel_radius = 0.035
+
         self.port = rospy.get_param('~port', '/dev/ttyACM0')
         self.lidar_frame = rospy.get_param('~lidar_frame', 'lidar')
         self.velocity_command_timeout = rospy.Duration.from_sec(rospy.get_param('~cmd_vel_timeout', 0.25))
@@ -29,15 +32,17 @@ class MoonRobotDriver:
 
     def setVelocityCallback(self, request):
         self.stop_time_without_commands = rospy.Time.now() + self.velocity_command_timeout
-        left_wheel_velocity = request.left_joint_velocity * 1000
-        right_wheel_velocity = request.right_joint_velocity * 1000
+        left_wheel_velocity = request.left_joint_velocity * self.wheel_radius * 1000
+        right_wheel_velocity = request.right_joint_velocity * self.wheel_radius * 1000
         max_velocity = max(abs(left_wheel_velocity), abs(right_wheel_velocity))
+        if max_velocity > self.robot.max_speed:
+            max_velocity = self.robot.max_speed
         self.robot.setMotors(left_wheel_velocity, right_wheel_velocity, max_velocity)
 
     def spin(self):
         scan = LaserScan(header=rospy.Header(frame_id=self.lidar_frame))
-        scan.angle_min = -3.13
-        scan.angle_max = +3.13
+        scan.angle_min = 0.0
+        scan.angle_max = 6.26
         scan.angle_increment = 0.017437326
         scan.range_min = 0.020
         scan.range_max = 5.0
