@@ -67,8 +67,8 @@ class MoonRobotDriver:
                 then = scan.header.stamp
 
                 left_joint_position, right_joint_position = self.robot.getMotors()
-                left_joint_position /= 1000.0
-                right_joint_position /= 1000.0
+                left_joint_position /= 1000.0 * self.wheel_radius
+                right_joint_position /= 1000.0 * self.wheel_radius
 
                 left_joint_velocity = (left_joint_position - joint_states.left_joint_position) / duration
                 right_joint_velocity = (right_joint_position - joint_states.right_joint_position) / duration
