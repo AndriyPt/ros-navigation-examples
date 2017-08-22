@@ -20,7 +20,7 @@
 
   </xacro:macro>
 
-  <xacro:macro name="transmission_wheel" params="prefix radius width holder_size wheels_distance direction">
+  <xacro:macro name="transmission_wheel" params="prefix radius width holder_size direction x y z">
 
     <link name="${prefix}_wheel_holder">
       <visual>
@@ -34,7 +34,7 @@
     <joint name="base_to_${prefix}_wheel_holder" type="fixed">
       <parent link="base_link"/>
       <child link="${prefix}_wheel_holder"/>
-      <origin xyz="0 ${direction * (holder_size + wheels_distance)/2} ${holder_size/2}" rpy="0 0 ${pi / 2}"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 ${pi / 2}"/>
       <axis xyz="0 0 1"/>
     </joint>
 
@@ -50,7 +50,7 @@
     <joint name="${prefix}_wheel_joint" type="continuous">
       <parent link="${prefix}_wheel_holder"/>
       <child link="${prefix}_wheel"/>
-      <origin xyz="${direction * (width + holder_size) / 2} 0 0" rpy="0 ${pi/2} 0"/>
+      <origin xyz="${-direction * (width + holder_size) / 2} 0 0" rpy="0 ${pi/2} 0"/>
       <axis xyz="0 0 1"/>
     </joint>
 

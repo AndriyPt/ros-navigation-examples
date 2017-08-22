@@ -48,6 +48,18 @@
     <material>Gazebo/Black</material>
   </gazebo>
 
+  <gazebo reference="caster_back_left_wheel">
+    <mu1 value="0.0"/>
+    <mu2 value="0.0"/>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="caster_back_right_wheel">
+    <mu1 value="0.0"/>
+    <mu2 value="0.0"/>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
   <gazebo reference="back_right_wheel_holder">
     <mu1 value="0.0"/>
     <mu2 value="0.0"/>
