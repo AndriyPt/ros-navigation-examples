@@ -1,0 +1,10 @@
+shutdown_costmaps: false
+
+base_local_planner: "base_local_planner/TrajectoryPlannerROS"
+
+base_global_planner: "global_planner/GlobalPlanner"
+#alternatives:
+#base_global_planner: "navfn/NavfnROS"
+#base_global_planner: "carrot_planner/CarrotPlanner"
+
+recovery_behavior_enabled: true
