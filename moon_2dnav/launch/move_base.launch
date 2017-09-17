@@ -1,6 +1,7 @@
 <launch>
+  <arg name="map_file" default="simulation"/>
 
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find moon_2dnav)/maps/simulation.yml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find moon_2dnav)/maps/$(arg map_file).yaml"/>
 
   <include file="$(find moon_2dnav)/launch/amcl.launch"/>
 

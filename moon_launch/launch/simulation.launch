@@ -1,5 +1,8 @@
 <launch>
-    <include file="$(find moon_gazebo)/launch/gazebo.launch" />
+    <arg name="world_file" default="moon"/>
+    <include file="$(find moon_gazebo)/launch/gazebo.launch">
+        <arg name="world_file" value="$(arg world_file)"/>
+    </include>
 
     <rosparam file="$(find moon_control)/config/gazebo/moon_control.yml" command="load" />
     <include file="$(find moon_control)/launch/control.launch" />

@@ -1,4 +1,7 @@
 <launch>
-    <include file="$(find moon_2dnav)/launch/move_base.launch" />
+    <arg name="map_file" default="simulation"/>
+    <include file="$(find moon_2dnav)/launch/move_base.launch">
+        <arg name="map_file" value="$(arg map_file)"/>
+    </include>
     <include file="$(find moon_2dnav)/launch/rviz.launch" />
 </launch>
