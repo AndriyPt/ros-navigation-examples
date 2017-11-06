@@ -10,6 +10,7 @@
     <rosparam file="$(find moon_2dnav)/config/local_costmap_params.yml" command="load"/>
     <rosparam file="$(find moon_2dnav)/config/global_costmap_params.yml" command="load"/>
     <rosparam file="$(find moon_2dnav)/config/base_local_planner_params.yml" command="load"/>
+    <rosparam file="$(find moon_2dnav)/config/teb_local_planner_params.yml" command="load"/>
     <rosparam file="$(find moon_2dnav)/config/navfn_global_planner_params.yml" command="load"/>
     <rosparam file="$(find moon_2dnav)/config/new_global_planner_params.yml" command="load"/>
     <rosparam file="$(find moon_2dnav)/config/move_base_params.yml" command="load"/>

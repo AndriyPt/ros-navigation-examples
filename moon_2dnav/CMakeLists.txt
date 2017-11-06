@@ -4,10 +4,13 @@ project(moon_2dnav)
 find_package(catkin REQUIRED)
 
 catkin_package(
-  CATKIN_DEPENDS move_base gmapping amcl map_server rviz global_planner
+  CATKIN_DEPENDS move_base gmapping amcl map_server rviz global_planner teb_local_planner
 )
 
 install(FILES
   launch/gmapping.launch
+  launch/amcl.launch
+  launch/move_base.launch
+  launch/rviz.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
