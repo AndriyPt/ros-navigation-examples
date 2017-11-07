@@ -3,7 +3,7 @@
 Some examples of ROS based navigation
 
 ## Docker
-For convinience it is recommended to use Docker containers. 
+For convenience it is recommended to use Docker containers.
 Please follow these steps to run Docker container on your machine.
  
  1. Install Desktop OS Ubuntu Trusty or Xenial on your machine or in virtual machine
@@ -18,7 +18,11 @@ sudo usermod -aG docker $USER
 ```bash
 docker pull shadowrobot/build-tools:xenial-kinetic-ide
 ```
- 7. If you want to run everything from docker container use the following command
+ 7. Use the following command to start Docker container for simulation only 
+```bash
+docker run -it --name navigation_demo -e DISPLAY -e LOCAL_USER_ID=$(id -u) -v /tmp/.X11-unix:/tmp/.X11-unix:rw shadowrobot/build-tools:xenial-kinetic-ide
+```
+In case if you have real robot you should start the following Docker container
 ```bash
 docker run -it --name navigation_demo -e DISPLAY -e LOCAL_USER_ID=$(id -u) --device=/dev/ttyACM0  -v /tmp/.X11-unix:/tmp/.X11-unix:rw shadowrobot/build-tools:xenial-kinetic-ide
 ```
@@ -97,12 +101,8 @@ Launch gmapping node
 roslaunch moon_launch gmapping.launch
 ```
 
-Launch teleop node and drive robot around
-```bash
-roslaunch moon_launch teleop.launch
-```
-
-Drive arround environment to build map.
+Drive arround environment to build map using [the following keys](http://wiki.ros.org/stdr_simulator/Tutorials/Teleop%20with%20teleop_twist_keyboard#Teleoperate_your_robot.21).
+*Please note that console window with gmapping launch file should be active in order to teleoperate robot using keys* 
 
 Save map to file
 ```bash
