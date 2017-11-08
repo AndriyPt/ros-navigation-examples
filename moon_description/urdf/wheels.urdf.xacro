@@ -44,7 +44,7 @@
         <xacro:black_material/>
       </visual>
       <xacro:cylinder_collision radius="${radius}" height="${width}"/>
-      <xacro:cylinder_inertia mass="1" radius="${radius}" height="${width}"/>
+      <xacro:cylinder_inertia mass="5" radius="${radius}" height="${width}"/>
     </link>
 
     <joint name="${prefix}_wheel_joint" type="continuous">

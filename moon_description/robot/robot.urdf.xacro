@@ -55,10 +55,10 @@
 
   <xacro:transmission_wheel prefix="back_left" radius="${wheel_radius}" width="${wheel_width}"
                             holder_size="${wheel_holder_size}" direction="1.0" x="-0.0125" y="0.14"
-                            z="${wheel_radius - caster_radius - 0.001}"/>
+                            z="${wheel_radius - caster_radius}"/>
   <xacro:transmission_wheel prefix="back_right" radius="${wheel_radius}" width="${wheel_width}"
                             holder_size="${wheel_holder_size}" direction="-1.0" x="-0.0125" y="-0.14"
-                            z="${wheel_radius - caster_radius - 0.001}"/>
+                            z="${wheel_radius - caster_radius}"/>
 
   <xacro:caster_wheel prefix="back_left" radius="${caster_radius}" x="-0.1125" y="0.0725" z="0"/>
   <xacro:caster_wheel prefix="back_right" radius="${caster_radius}" x="-0.1125" y="-0.0725" z="0"/>
