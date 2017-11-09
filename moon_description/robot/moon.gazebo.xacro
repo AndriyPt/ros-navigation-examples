@@ -13,7 +13,7 @@
   <gazebo reference="base_link">
     <mu1 value="0.0"/>
     <mu2 value="0.0"/>
-    <material>Gazebo/White</material>
+    <material>Gazebo/Gold</material>
   </gazebo>
 
   <gazebo reference="base_footprint">
